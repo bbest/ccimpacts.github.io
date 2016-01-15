@@ -8,6 +8,6 @@ sea_data<-data.frame(impacts, temp)
 colnames(sea_data)<- c("sea_rise", "ave_temp")
 
 model<-lm(sea_rise~ ave_temp, data=sea_data)
-plot(sea_data$ave_temp, sea_data$sea_rise, ylab = "Sea Level Rise (m)", xlab="Temp (C)")
+plot(sea_data$ave_temp, sea_data$sea_rise, ylab = "Sea Level Rise (m)", xlab="Temp (C)", main="Sea Level Rise with")
 abline(model, col="red")
 
