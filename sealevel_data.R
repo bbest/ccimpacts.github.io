@@ -8,3 +8,5 @@ real_data<-as.data.frame(c(impacts, temp))
 colnames(real_data)<- c("sea_rise", "ave_temp")
 
 View(real_data)
+
+plot(real_data$sea_rise, real_data$ave_temp)
