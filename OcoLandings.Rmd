@@ -1,0 +1,39 @@
+---
+title: "Octopus"
+author: "Juliano Palacios Abrantes"
+date: "January 28, 2016"
+output: html_document
+---
+
+####
+#Juliano Palacios
+####
+
+#Octopus Landings data for Mexico
+
+```{r}
+Landings<- read.csv("Data/OctoLanding.csv")
+summary(Landings)
+```
+
+### Clean the data, can we eliminate those columns that we won't need?
+
+```{r Select}
+library(dplyr)
+Clean<- select(Landings, Year:ONI)
+head(Clean)
+
+```
+
+### Filter, how many years presented landings over 15,000 tons?
+
+```{r Filter}
+filter(Clean, Total.Landings >= 15000)
+
+#22 years presented more than 15,000 tons
+```
+
+### Group, what was the mean catch for El Nino, La Nina and Normal years?
+```{r group_by}
+Clean %>% group_by(ONI) %>% summarize(M_Pacific_Landings=mean(Pacific.Landings),sd=sd(Pacific.Landings)) 
+
