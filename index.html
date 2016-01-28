@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Kristen Boysen" />
+<meta name="author" content="Kristen Boysen &amp; Juliano Palacios" />
 
 <meta name="date" content="2016-01-22" />
 
@@ -63,7 +63,7 @@ img {
 
 <div id="header">
 <h1 class="title">DMP</h1>
-<h4 class="author"><em>Kristen Boysen</em></h4>
+<h4 class="author"><em>Kristen Boysen &amp; Juliano Palacios</em></h4>
 <h4 class="date"><em>January 22, 2016</em></h4>
 </div>
 
@@ -79,13 +79,12 @@ img {
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
-<p>Data consists on a historical series (1980-2013) of octopus landings from both the Pacific and the Caribbean coasts of Mexico. The data is publish every year by Mexico’s Fisheries Agency, thus is considered official. We also include the value (in Mexican Pesos) of each year fishery. That data is also reported by the Mexican authorities and is considered to be official. Finally, we included the Oceanic Nino Index. Data was provided by the National Oceanic and Atmospheric Agency and can be reviewed here <a href="http://www.cpc.noaa.gov/products/analysis_monitoring/ensostuff/ensoyears.shtml" class="uri">http://www.cpc.noaa.gov/products/analysis_monitoring/ensostuff/ensoyears.shtml</a>.</p>
+<p>Data consists on a historical series (1980-2013) of octopus landings from both the Pacific and the Caribbean coasts of Mexico. The data is officially published every year by Mexico’s Fisheries Agency. We also include the value (in Mexican Pesos) of the fishery each year. That data is also reported by the Mexican authorities and is considered to be official. Finally, we included the Oceanic Nino Index. Data was provided by the National Oceanic and Atmospheric Agency and can be reviewed <a href="http://www.cpc.noaa.gov/products/analysis_monitoring/ensostuff/ensoyears.shtml">here.</a></p>
 <p>The index determines the year by periods based on a threshold of +/- 0.5oC for the Oceanic Niño Index (ONI) [3 month running mean of ERSST.v4 SST anomalies in the Niño 3.4 region (5oN-5oS, 120o-170oW)].</p>
 </div>
 <div id="data-and-metadata-standards" class="section level2">
 <h2>Data and Metadata Standards</h2>
-<p>Datasets need metadata to be usable. Think about what details (metadata) someone else would need to be able to use these files. For example, you may need a readme.txt file to explain variables, structure of the files, etc. Consider the following:</p>
-<p>What contextual details (metadata) are needed to make the data you capture or collect meaningful? What form will the metadata describing/documenting your data take? How will you create or capture these details? Which metadata standards will you use and why have you chosen them?</p>
+<p>As we include more data into this project, we will keep detailed metadata of where data was acquired, resolution of data, and any assumptions we may make to integrate each dataset.</p>
 </div>
 <div id="policies-for-access-and-sharing" class="section level2">
 <h2>Policies for access and sharing</h2>
@@ -93,12 +92,11 @@ img {
 </div>
 <div id="policies-for-provisions-for-re-use-re-distribution" class="section level2">
 <h2>Policies for provisions for re-use, re-distribution</h2>
-<p>Describe policies surrounding the re-use of your data – the EAR division is specifically interested in how soon you will make your data available. If you will not be making the data available for re-use immediately, explain why. Remember that EAR specifies that you must make your data available no later than two years after your research is complete. If there are other policy issues regarding data access and re-use (ethical or privacy issues, for instance) elaborate on them here. Consider these questions:</p>
-<p>When will you make the data available? Does the original data collector/creator/principal investigator retain the right to use the data before opening it up to wider use? Will any permission restrictions need to be placed on the data? How long will the original data collector/creator/principal investigator retain the right to use the data before making them available for wider distribution? Are there any embargo periods for political/commercial/patent reasons? If so, give details. Are there ethical and privacy issues? If so, how will these be resolved? What have you done to comply with your obligations in your IRB Protocol? Who will hold the intellectual property rights to the data and how might this affect data access? What and who are the intended or foreseeable uses / users of the data?</p>
+<p>All of results from our analyses will be available to the public from our github site, and all our data we use will be publically available.</p>
 </div>
 <div id="plans-for-archiving-and-preservation-of-access" class="section level2">
 <h2>Plans for archiving and preservation of access</h2>
-<p>What is the long-term strategy for maintaining, curating and archiving the data? Which archive/repository/database have you identified as a place to deposit data? What procedures does your intended long-term data storage facility have in place for preservation and backup? How long will/should data be kept beyond the life of the project? What data will be preserved for the long-term? What transformations will be necessary to prepare data for preservation / data sharing? What metadata/ documentation will be submitted alongside the data or created on deposit/ transformation in order to make the data reusable? What related information will be deposited?</p>
+<p>This project will be completed as part of ESM 296: Informatics at the Bren School of Environmental Science &amp; Management. If this project continues beyond the quarter, we will decide how best to transfer and store our data.</p>
 </div>
 <div id="octopus-landings-data-for-mexico" class="section level1">
 <h1>Octopus Landings data for Mexico</h1>
@@ -131,7 +129,7 @@ summary(Landings)</code></pre>
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>Clean&lt;- select(Landings, Year:ONI)
+<pre class="r"><code>Clean&lt;- select(Landings, Year:ONI) 
 head(Clean)</code></pre>
 <pre><code>##   Year Pacific.Landings Caribbean.Landings Total.Landings Economic.Value
 ## 1 1980                0               6444           6509             NA
@@ -206,10 +204,20 @@ head(Clean)</code></pre>
 ## 
 ##      ONI M_Pacific_Landings       sd
 ##   (fctr)              (dbl)    (dbl)
-## 1                        NA       NA
+## 1                        NA      NaN
 ## 2   Nina           844.6154 415.8526
 ## 3   Nino           772.4167 443.4986
 ## 4 Normal          1018.5556 476.7515</code></pre>
+</div>
+<div id="price-of-landings" class="section level3">
+<h3>price of landings</h3>
+<p>What was the price each year and what is the average price of octopus?</p>
+<pre class="r"><code>mutate(Clean, price= Economic.Value/Total.Landings) %&gt;% 
+  na.omit %&gt;% 
+  summarise(mean(price))</code></pre>
+<pre><code>##   mean(price)
+## 1    2565.212</code></pre>
+<pre class="r"><code>##the average price/landing unit is 2,565 (not including years without economic value of the fishery). </code></pre>
 </div>
 </div>
 

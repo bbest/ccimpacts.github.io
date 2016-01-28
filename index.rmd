@@ -1,6 +1,6 @@
 ---
 title: "DMP"
-author: "Kristen Boysen"
+author: "Kristen Boysen & Juliano Palacios"
 date: "January 22, 2016"
 output: html_document
 ---
