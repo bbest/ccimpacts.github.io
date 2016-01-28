@@ -79,9 +79,8 @@ img {
 </div>
 <div id="types-of-data" class="section level2">
 <h2>Types of Data</h2>
-<p>Provide a description of the data you will collect or re-use, including the file types, dataset size, number of expected files or sets, and content. Data types could include text, spreadsheets, images, 3D models, software, audio files, video files, reports, surveys, patient records, etc. Data that underlie the findings reported in a journal article or conference paper should be deposited in accordance with the policies of the publication and according to the procedures laid out in the DMP included in the proposal that led to the award on which the research is based.</p>
-<p>Consider the following:</p>
-<p>What data will be generated in the research? What data types will you be creating or capturing? How will you capture or create the data? If you will be using existing data, state this and include how you will obtain it. What is the relationship between the data you are collecting and any existing data? How will the data be processed? What quality assurance &amp; quality control measures will you employ?</p>
+<p>Data consists on a historical series (1980-2013) of octopus landings from both the Pacific and the Caribbean coasts of Mexico. The data is publish every year by Mexico’s Fisheries Agency, thus is considered official. We also include the value (in Mexican Pesos) of each year fishery. That data is also reported by the Mexican authorities and is considered to be official. Finally, we included the Oceanic Nino Index. Data was provided by the National Oceanic and Atmospheric Agency and can be reviewed here <a href="http://www.cpc.noaa.gov/products/analysis_monitoring/ensostuff/ensoyears.shtml" class="uri">http://www.cpc.noaa.gov/products/analysis_monitoring/ensostuff/ensoyears.shtml</a>.</p>
+<p>The index determines the year by periods based on a threshold of +/- 0.5oC for the Oceanic Niño Index (ONI) [3 month running mean of ERSST.v4 SST anomalies in the Niño 3.4 region (5oN-5oS, 120o-170oW)].</p>
 </div>
 <div id="data-and-metadata-standards" class="section level2">
 <h2>Data and Metadata Standards</h2>
@@ -90,8 +89,7 @@ img {
 </div>
 <div id="policies-for-access-and-sharing" class="section level2">
 <h2>Policies for access and sharing</h2>
-<p>Specify how you will share your data with others after the project is completed. Ideally, you will use an appropriate open-access discipline-specific data repository; regardless of the repository you choose, describe how you chose it. Consider these questions:</p>
-<p>How, when, and where will you make the data available? What resources will be needed to reuse the data? Examples include software or equipment. What is the process for gaining access to the data? Who are the foreseeable data users? How should your data be cited?</p>
+<p>Our data is 100% public. Data from landings and revenue was provided by the Mexican government and can be accessed at: <a href="http://goo.gl/qBaqRp" class="uri">http://goo.gl/qBaqRp</a> . The Oceanic Nino Index data is publicly available at the NOAA site <a href="http://goo.gl/b2aXSf" class="uri">http://goo.gl/b2aXSf</a></p>
 </div>
 <div id="policies-for-provisions-for-re-use-re-distribution" class="section level2">
 <h2>Policies for provisions for re-use, re-distribution</h2>
@@ -101,6 +99,118 @@ img {
 <div id="plans-for-archiving-and-preservation-of-access" class="section level2">
 <h2>Plans for archiving and preservation of access</h2>
 <p>What is the long-term strategy for maintaining, curating and archiving the data? Which archive/repository/database have you identified as a place to deposit data? What procedures does your intended long-term data storage facility have in place for preservation and backup? How long will/should data be kept beyond the life of the project? What data will be preserved for the long-term? What transformations will be necessary to prepare data for preservation / data sharing? What metadata/ documentation will be submitted alongside the data or created on deposit/ transformation in order to make the data reusable? What related information will be deposited?</p>
+</div>
+<div id="octopus-landings-data-for-mexico" class="section level1">
+<h1>Octopus Landings data for Mexico</h1>
+<pre class="r"><code>Landings&lt;- read.csv(&quot;Data/OctoLanding.csv&quot;)
+summary(Landings)</code></pre>
+<pre><code>##       Year      Pacific.Landings Caribbean.Landings Total.Landings 
+##  Min.   :1980   Min.   :   0.0   Min.   : 5770      Min.   : 5834  
+##  1st Qu.:1988   1st Qu.: 695.8   1st Qu.: 9482      1st Qu.:10046  
+##  Median :1996   Median : 944.5   Median :16158      Median :17065  
+##  Mean   :1996   Mean   : 865.2   Mean   :16055      Mean   :17006  
+##  3rd Qu.:2005   3rd Qu.:1180.2   3rd Qu.:20695      3rd Qu.:22734  
+##  Max.   :2013   Max.   :1672.0   Max.   :29547      Max.   :30958  
+##  NA's   :1      NA's   :1        NA's   :1          NA's   :1      
+##  Economic.Value          ONI        X          
+##  Min.   :   119228         : 1   Mode:logical  
+##  1st Qu.:   290924   Nina  :13   NA's:35       
+##  Median :   385708   Nino  :12                 
+##  Mean   : 54586945   Normal: 9                 
+##  3rd Qu.:   648497                             
+##  Max.   :580864334                             
+##  NA's   :14</code></pre>
+<div id="clean-the-data-can-we-eliminate-those-columns-that-we-wont-need" class="section level3">
+<h3>Clean the data, can we eliminate those columns that we won’t need?</h3>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: 'dplyr'</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>Clean&lt;- select(Landings, Year:ONI)
+head(Clean)</code></pre>
+<pre><code>##   Year Pacific.Landings Caribbean.Landings Total.Landings Economic.Value
+## 1 1980                0               6444           6509             NA
+## 2 1981                0               6868           7231             NA
+## 3 1982              243               6364           6607             NA
+## 4 1983               34               8553           8587             NA
+## 5 1984               64               5770           5834             NA
+## 6 1985              568               6000           6568             NA
+##      ONI
+## 1   Nino
+## 2 Normal
+## 3   Nino
+## 4   Nina
+## 5   Nina
+## 6   Nina</code></pre>
+</div>
+<div id="filter-how-many-years-presented-landings-over-15000-tons" class="section level3">
+<h3>Filter, how many years presented landings over 15,000 tons?</h3>
+<pre class="r"><code>filter(Clean, Total.Landings &gt;= 15000)</code></pre>
+<pre><code>##    Year Pacific.Landings Caribbean.Landings Total.Landings Economic.Value
+## 1  1990             1002              15386          16388             NA
+## 2  1991             1479              15339          16818             NA
+## 3  1992              838              16297          17135             NA
+## 4  1993             1204              15791          16995         119228
+## 5  1994              975              16826          17801         128571
+## 6  1995              877              18958          19803         168323
+## 7  1996             1257              28572          29829         470317
+## 8  1997              944              17776          18720         329208
+## 9  1998              755              16478          17233         328421
+## 10 1999             1094              19081          20175         290924
+## 11 2000              866              21117          23346         273281
+## 12 2001              819              19428          21433         320990
+## 13 2002              676              16018          16693         385708
+## 14 2003             1044              15713          16757         441075
+## 15 2004             1172              24269          25441         567157
+## 16 2006              945              26208          27153         748481
+## 17 2007             1004              18730          19733      580864334
+## 18 2009             1217              24463          25680         607635
+## 19 2010             1183              21985          23167      557370071
+## 20 2011             1275              26266          27541         868350
+## 21 2012             1411              29547          30958         781265
+## 22 2013             1672              23175          24846         648497
+##       ONI
+## 1  Normal
+## 2    Nino
+## 3    Nino
+## 4  Normal
+## 5    Nino
+## 6    Nina
+## 7  Normal
+## 8    Nino
+## 9    Nina
+## 10   Nina
+## 11   Nina
+## 12 Normal
+## 13   Nino
+## 14 Normal
+## 15   Nino
+## 16   Nino
+## 17   Nina
+## 18   Nino
+## 19   Nina
+## 20   Nina
+## 21 Normal
+## 22 Normal</code></pre>
+<pre class="r"><code>#22 years presented more than 15,000 tons</code></pre>
+</div>
+<div id="group-what-was-the-mean-catch-for-el-nino-la-nina-and-normal-years" class="section level3">
+<h3>Group, what was the mean catch for El Nino, La Nina and Normal years?</h3>
+<pre class="r"><code>Clean %&gt;% group_by(ONI) %&gt;% summarize(M_Pacific_Landings=mean(Pacific.Landings),sd=sd(Pacific.Landings)) </code></pre>
+<pre><code>## Source: local data frame [4 x 3]
+## 
+##      ONI M_Pacific_Landings       sd
+##   (fctr)              (dbl)    (dbl)
+## 1                        NA       NA
+## 2   Nina           844.6154 415.8526
+## 3   Nino           772.4167 443.4986
+## 4 Normal          1018.5556 476.7515</code></pre>
+</div>
 </div>
 
 
