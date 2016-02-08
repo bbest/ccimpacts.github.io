@@ -1,0 +1,48 @@
+---
+title: "Week 5 ggplot Group Assignment"
+author: "Kristen Boysen, Jennifer Kidson & Juliano Palacios"
+date: "February 7, 2016"
+output: html_document
+---
+
+## Part One: Plot based on tree thinning dataset
+For start year 1950, plot LAI vs transpiration in 4 different months.
+```{r thin}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(gridExtra)
+
+thin = read_csv("./data/thinning.csv")        # read in thin data
+ 
+thin %>%
+  filter(startyear == 1950 & month == 3) %>%  # filter by startyear and month (March)
+  ggplot(aes(x=lai, y=trans)) +               # plot transpiration against lai
+  geom_point(color = "green") +               # set color
+  labs(x="LAI", y="Transpiration") +          # set labels
+  ggtitle("March")-> p1                       # set title and create variable for plot
+
+thin %>%
+  filter(startyear == 1950 & month == 6) %>%  # June
+  ggplot(aes(x=lai, y=trans)) +
+  geom_point(color = "yellow") +
+  labs(x="LAI", y="Transpiration") +
+  ggtitle("June") -> p2
+
+thin %>%
+  filter(startyear == 1950 & month == 9) %>%  # September
+  ggplot(aes(x=lai, y=trans)) +
+  geom_point(color = "orange") +
+  labs(x="LAI", y="Transpiration") +
+  ggtitle("September") -> p3
+
+thin %>%
+  filter(startyear == 1950 & month == 12) %>% # December
+  ggplot(aes(x=lai, y=trans)) +
+  geom_point(color = "blue") +
+  labs(x="LAI", y="Transpiration") +
+  ggtitle("December")-> p4
+
+grid.arrange(p1,p2,p3,p4)                       # arrange the 4 plots in a grid
+```
