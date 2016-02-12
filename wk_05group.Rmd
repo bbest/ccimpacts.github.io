@@ -64,5 +64,23 @@ thin %>%
                                                                                                        panel.background = element_blank()) +
     ggtitle("December")-> p4
 
-grid.arrange(p1,p2,p3,p4)                       # arrange the 4 plots in a grid
+grid.arrange(p1,p2,p3,p4, top="Monthly Transpiration")     # arrange the 4 plots in a grid, with title
 ```
+
+##Part Two: create plot using landing and temp data
+```{r part two}
+Octo <- read.csv("./Data/OctoLanding.csv")
+test<- Octo %>% 
+  gather("fishery", "catch", 2:4) %>% 
+  filter(fishery!="Total.Landings")
+
+octo_plot<- ggplot(test, aes(x=Year, y=catch)) +
+  geom_point(aes(color=fishery, size=ONI)) +
+  theme_classic() +
+  ggtitle("Octopus Landings from 1980-2014") +
+  labs(x="Year", y="Octopus landings (tons)") +
+  theme(legend.position = "bottom")
+
+octo_plot
+```
+
