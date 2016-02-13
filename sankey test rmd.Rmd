@@ -9,17 +9,22 @@ output: html_document
 ```{r sankey test}
 library(dplyr)
 library(readr)
-read_csv("./Data/p1.csv") %>% # read csv for node names
-  data.frame() -> nodes
-
-read_csv("./Data/p2.csv") %>% # read csv for links
-  data.frame() -> links
-links$Value = as.numeric(links$Value) # make "Values" column in links numeric
-testsan = list(nodes = nodes, links = links) # create list containing node and list data (named)
 library(networkD3)
-sankeyNetwork(Links = testsan$links, Nodes = testsan$nodes, Source = "Source",
-              Target = "Target", Value = "Value", NodeID = "name",
-              units = "AF", fontSize = 12, nodeWidth = 30)
+nodes = read_csv("./Data/p1.csv") %>%
+  as.data.frame()
+
+links = read_csv("./Data/p2.csv") %>%
+  filter(Value!=0) %>% ##not equal to 0 
+  # sankey links numbering needs to start at 0
+  mutate(
+    Source = Source - 1,
+    Target = Target - 1) %>%
+  as.data.frame()
+
+sankeyNetwork(
+  Links = links, Nodes = nodes, Source = "Source",
+  Target = "Target", Value = "Value", NodeID = "name",
+  units = "AF", fontSize = 12, nodeWidth = 30)
 
 # I don't get an error message, just nothing appears
 

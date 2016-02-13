@@ -84,19 +84,24 @@ img {
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(readr)
-read_csv(&quot;./Data/p1.csv&quot;) %&gt;% # read csv for node names
-  data.frame() -&gt; nodes
-
-read_csv(&quot;./Data/p2.csv&quot;) %&gt;% # read csv for links
-  data.frame() -&gt; links
-links$Value = as.numeric(links$Value) # make &quot;Values&quot; column in links numeric
-testsan = list(nodes = nodes, links = links) # create list containing node and list data (named)
 library(networkD3)
-sankeyNetwork(Links = testsan$links, Nodes = testsan$nodes, Source = &quot;Source&quot;,
-              Target = &quot;Target&quot;, Value = &quot;Value&quot;, NodeID = &quot;name&quot;,
-              units = &quot;AF&quot;, fontSize = 12, nodeWidth = 30)</code></pre>
-<p><div id="htmlwidget-2982" style="width:672px;height:480px;" class="sankeyNetwork"></div>
-<script type="application/json" data-for="htmlwidget-2982">{"x":{"links":{"source":[1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10],"target":[6,7,8,9,10,6,7,8,9,10,6,7,8,9,10,6,7,8,9,10,6,7,8,9,10,11,12,13,14,11,12,13,14,11,12,13,14,11,12,13,14,11,12,13,14],"value":[9000,0,8000,2600,2800,0,4000,0,1300,0,1000,2000,1000,700,1000,2000,1000,900,600,600,1000,0,900,0,0,9750,1170,1430,650,5250,630,770,350,8100,972,1188,540,3900,468,572,260,3300,396,484,220]},"nodes":{"name":["Cachuma","Other Local Surface","Groundwater","State Water Project","Recycled","Goleta","La Cumbre","Santa Barbara","Montecito","Carpinteria","Residential","Commercial/Industrial","Non-residential irrigation demand","Recycled demand"],"group":["Cachuma","Other Local Surface","Groundwater","State Water Project","Recycled","Goleta","La Cumbre","Santa Barbara","Montecito","Carpinteria","Residential","Commercial/Industrial","Non-residential irrigation demand","Recycled demand"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scale.category20()","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"AF","margin":{"top":null,"right":null,"bottom":null,"left":null}}},"evals":[]}</script></p>
+nodes = read_csv(&quot;./Data/p1.csv&quot;) %&gt;%
+  as.data.frame()
+
+links = read_csv(&quot;./Data/p2.csv&quot;) %&gt;%
+  filter(Value!=0) %&gt;% ##not equal to 0 
+  # sankey links numbering needs to start at 0
+  mutate(
+    Source = Source - 1,
+    Target = Target - 1) %&gt;%
+  as.data.frame()
+
+sankeyNetwork(
+  Links = links, Nodes = nodes, Source = &quot;Source&quot;,
+  Target = &quot;Target&quot;, Value = &quot;Value&quot;, NodeID = &quot;name&quot;,
+  units = &quot;AF&quot;, fontSize = 12, nodeWidth = 30)</code></pre>
+<p><div id="htmlwidget-7189" style="width:672px;height:480px;" class="sankeyNetwork"></div>
+<script type="application/json" data-for="htmlwidget-7189">{"x":{"links":{"source":[0,0,0,0,1,1,2,2,2,2,2,3,3,3,3,3,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9],"target":[5,7,8,9,6,8,5,6,7,8,9,5,6,7,8,9,5,7,10,11,12,13,10,11,12,13,10,11,12,13,10,11,12,13,10,11,12,13],"value":[9000,8000,2600,2800,4000,1300,1000,2000,1000,700,1000,2000,1000,900,600,600,1000,900,9750,1170,1430,650,5250,630,770,350,8100,972,1188,540,3900,468,572,260,3300,396,484,220]},"nodes":{"name":["Cachuma","Other Local Surface","Groundwater","State Water Project","Recycled","Goleta","La Cumbre","Santa Barbara","Montecito","Carpinteria","Residential","Commercial/Industrial","Non-residential irrigation demand","Recycled demand"],"group":["Cachuma","Other Local Surface","Groundwater","State Water Project","Recycled","Goleta","La Cumbre","Santa Barbara","Montecito","Carpinteria","Residential","Commercial/Industrial","Non-residential irrigation demand","Recycled demand"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scale.category20()","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"AF","margin":{"top":null,"right":null,"bottom":null,"left":null}}},"evals":[]}</script></p>
 <pre class="r"><code># I don't get an error message, just nothing appears
 
 # Original Energy Sankey Plot
