@@ -1,0 +1,170 @@
+---
+title: "Assignment 7"
+author: "K Boysen, J Kidson, J Palacios-Abrantes"
+date: "February 25, 2016"
+output: html_document
+---
+
+```{r Data Import and libraries needed, echo=F, warning=F, message=F}
+#Data<- read.csv("/Users/Carmelia/Desktop/Informatics/Github/ccimpacts.github.io/Data/thinning.csv")
+
+library(psim) 
+# #If you dont have psim #
+library(devtools)
+# install_github("jepa/jepa.github.io", subdir = "psim")
+library(ggplot2) 
+```
+
+
+
+#### The "psim"" function, Simulates p values from random sample. 
+##### For first check, remove "#" when "Checking Steps" and follow instructions
+
+
+
+```{rPsim function with checking steps}
+#' Simulate p values from random sample
+#'
+#' @author Juliano E. Palacios Abrantes
+#' @param data Dataset to test from
+#' @param column Column of data set to take values from
+#' @param n Number of samples to take from total sample
+#' @param pro Professional value to test against
+#' @param sim Number of simulations (1:inf)
+#' @param ci Confidence Interval (0.90, 0.95, 0.99 ) (default = 0.95)
+#' @param test Type of test between parametric t.test and non parametric w.test (default = t.test)
+#' @return Table with pvalues
+#' @export
+#' @examples
+#' Run this code for a practical example
+#' Data <- data.frame(seq(0,10))
+#' data=Data
+#'column=1
+#'n=2
+#'pro=5
+#'sim=10
+#'ci=0.95
+#'Testing the function
+#'psim(data,column,n,pro,sim,ci)
+#'
+#'For alternative with a confidence interval of 0.90
+#'psim(data,column,n,pro,sim,ci="0.90")
+#'
+#'For alternative non parametric test use test="w.test"
+#'psim(data,column,n,pro,sim,ci,test="w.test")
+#'
+
+psim <- function(data,column,n,pro,sim,ci="0.95",test="t.test"){
+  library(dplyr)
+# Creates the matrix for x
+  x <- data.frame(matrix(nrow = n, ncol=sim))
+
+#Loops trought the matrix to get random numbers of samplings within the n scorring world
+  for (i in 1:sim){
+      x[i] = sample(data[,column],n)
+  }
+
+############ Checking step ############
+#head(x) #should return "sim" number of vectors
+#____________________________________#
+
+##### The tests #####
+
+# Runs a parametric t.test  for each combination of n with 0.95 CI
+  if (test == "t.test" & ci == "0.95"){
+
+    Score<- apply(x, 2, t.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.95)
+
+############ Checking step ############
+#print(Score) #just checking the test is the correct one
+#____________________________________#
+
+  } #If test = t.test CI 0.95
+
+# Runs a parametric t.test  for each combination of n with 0.90 CI
+  if (test == "t.test" & ci == "0.90"){
+
+    Score<- apply(x, 2, t.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.90)
+
+  } #If test = t.test CI 90
+
+# Runs a parametric t.test  for each combination of n with 0.99 CI
+  if (test == "t.test" & ci == "0.99"){
+
+    Score<- apply(x, 2, t.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.99)
+
+  } #If test = t.test CI 99
+
+  #### NON PARAMETRIC SECCTION ####
+  
+# Runs a NON parametric t.test (wilcox.test) for each combination of n
+  if(test == "w.test" & ci=="0.95"){
+
+    Score<- apply(x, 2, wilcox.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.95)
+
+  ############ Checking step ############
+  #print(Score) #just checking the wilcox.test is the same
+  #____________________________________#
+
+  } #If test = w.test CI 95
+
+  # Runs a NON parametric t.test (wilcox.test)for each combination of n with 0.90 CI
+  if (test == "w.test" & ci == "0.90"){
+
+    Score<- apply(x, 2, wilcox.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.90)
+
+  } #If test = w.test CI 90
+
+  # Runs a parametric t.test  for each combination of n with 0.99 CI
+  if (test == "w.test" & ci == "0.99"){
+
+    Score<- apply(x, 2, wilcox.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.99)
+
+  } #If test = w.test CI 99
+
+
+# Retruns the p value for each test (IT'S WORKING! Feb,19)
+  Pval<- sapply(Score, "[", "p.value")
+  PvalTable <- data.frame(Pval)
+    return(PvalTable)
+
+} #Function END
+
+```
+
+#### Checking the function (2)
+
+```{r Check Test function}
+test_psim <- function(psimdata){
+
+Result.Psim <- data.frame(psimdata$X1.p.value,psimdata$X1)
+colnames(Result.Psim)<- c("pvalue","sample")
+
+Test<- t.test(Result.Psim$sample, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.99)
+Test
+
+if (Result.Psim$pvalue[1] == Test$p.value ){
+  print("Test works fine")
+}else{
+  print("something went wrong")
+}
+
+}
+
+```
+
+#### Example of psim function and psim function Test 
+
+```{r Check Function, 1}
+Data <- data.frame(seq(0,10)) #Creates a fake data
+data=Data #Inputs for the function
+column=1
+n=2
+pro=5
+sim=5
+ci=0.95
+Psimfunction<- psim(data,column,n,pro,sim,ci) #runs the function
+head(Psimfunction)
+test_psim(Psimfunction)
+```
+
