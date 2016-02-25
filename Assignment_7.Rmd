@@ -5,13 +5,13 @@ date: "February 25, 2016"
 output: html_document
 ---
 
-```{r Data Import and libraries needed, echo=F, warning=F, message=F}
+```{r Data Import and libraries needed, echo=T, warning=F, message=F}
 #Data<- read.csv("/Users/Carmelia/Desktop/Informatics/Github/ccimpacts.github.io/Data/thinning.csv")
 
-library(psim) 
-# #If you dont have psim #
+# Downloads psim package that contains functions(psim and psim_test) from jepa.github #
 library(devtools)
-# install_github("jepa/jepa.github.io", subdir = "psim")
+#install_github("jepa/jepa.github.io", subdir = "psim")
+library(psim)
 library(ggplot2) 
 ```
 

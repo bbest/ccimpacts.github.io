@@ -72,3 +72,6 @@ mutate(Clean, price= Economic.Value/Total.Landings) %>%
 ##the average price/landing unit is 2,565 (not including years without economic value of the fishery). 
 ```
 
+```{r Assignment 7 loading}
+source('Assignment_7.Rmd')
+```
