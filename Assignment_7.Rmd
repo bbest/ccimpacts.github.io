@@ -8,7 +8,7 @@ output: html_document
 ```{r Data Import and libraries needed, echo=T, warning=F, message=F}
 #Data<- read.csv("/Users/Carmelia/Desktop/Informatics/Github/ccimpacts.github.io/Data/thinning.csv")
 
-# Downloads psim package that contains functions(psim and psim_test) from jepa.github #
+# Downloads psim package that contains functions (psim and psim_test) from jepa.github #
 library(devtools)
 #install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
@@ -59,7 +59,7 @@ psim <- function(data,column,n,pro,sim,ci="0.95",test="t.test"){
 # Creates the matrix for x
   x <- data.frame(matrix(nrow = n, ncol=sim))
 
-#Loops trought the matrix to get random numbers of samplings within the n scorring world
+#Loops through the matrix to get random numbers of samplings within the n scoring world
   for (i in 1:sim){
       x[i] = sample(data[,column],n)
   }
