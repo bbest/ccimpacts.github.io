@@ -11,9 +11,10 @@ output: html_document
 # Downloads psim package that contains functions(psim and psim_test) from jepa.github #
 library(devtools)
 devtools::document()
-#install_github("jepa/jepa.github.io", subdir = "psim")
+install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
 library(ggplot2) 
+library(roxygen2)
 ```
 
 
