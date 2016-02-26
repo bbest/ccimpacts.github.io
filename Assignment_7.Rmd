@@ -10,6 +10,7 @@ output: html_document
 
 # Downloads psim package that contains functions(psim and psim_test) from jepa.github #
 library(devtools)
+devtools::document()
 #install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
 library(ggplot2) 
@@ -59,7 +60,7 @@ psim <- function(data,column,n,pro,sim,ci="0.95",test="t.test"){
 # Creates the matrix for x
   x <- data.frame(matrix(nrow = n, ncol=sim))
 
-#Loops trought the matrix to get random numbers of samplings within the n scorring world
+#Loops through the matrix to get random numbers of samplings within the n scoring world
   for (i in 1:sim){
       x[i] = sample(data[,column],n)
   }
