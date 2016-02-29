@@ -27,13 +27,14 @@ ui <- shinyUI(fluidPage(
    )
 ))
  
-Octo = read_csv("../Data/OctoLanding.csv")
-test <- Octo[, 1:6] %>% 
-  gather("fishery", "catch", 2:4) %>% 
-  filter(fishery!="Total.Landings")
-
  # Define server logic required to plot octopus landings
  server <- shinyServer(function(input, output) {
+ 
+   Octo = read_csv("../Data/OctoLanding.csv")      # Not sure if this section should be inside "server"                                                    # or not.
+   test <- Octo[, 1:6] %>% 
+     gather("fishery", "catch", 2:4) %>% 
+     filter(fishery!="Total.Landings")  
+   
   library(ggplot2)
   octo_plot <- ggplot(test, aes(x=Year, y=catch)) +
     geom_point(aes(color=fishery, size=ONI)) +
@@ -42,6 +43,8 @@ test <- Octo[, 1:6] %>%
     ggtitle("Octopus Landings") +
     labs(x="Year", y="Octopus landings (tons)") +
     theme(legend.position = "bottom")
+  
+  octo_plot                                       # Not sure if this is necessary but the plot wasn't                                                     # (still isn't) showing up, so I added it
     })
 
  # Run the application 
