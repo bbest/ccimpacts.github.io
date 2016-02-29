@@ -1,50 +1,49 @@
 #
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+# title: "Week 5 ggplot Group Assignment"
+# author: "K Boysen, J Kidson, J Palacios-Abrantes"
+# date: "February 29, 2016"
 
-library(shiny)
+####### Plot from Week 5 Assignment of octopus landings with a slider to select time range #########
+library(readr)
 
-# Define UI for application that draws a histogram
+# Define UI for application
 ui <- shinyUI(fluidPage(
-   
    # Application title
-   titlePanel("Old Faithful Geyser Data"),
-   
-   # Sidebar with a slider input for number of bins 
+   titlePanel("Octopus Landings"),
+   # Sidebar with a slider input for number of bins
    sidebarLayout(
       sidebarPanel(
-         sliderInput("bins",
-                     "Number of bins:",
-                     min = 1,
-                     max = 50,
-                     value = 30)
+         sliderInput("range",
+                     "Range:",
+                     min = 1980,
+                     max = 2013,
+                     value = c(1980,2013))
       ),
-      
+
       # Show a plot of the generated distribution
       mainPanel(
          plotOutput("distPlot")
       )
    )
 ))
+ 
+Octo = read_csv("../Data/OctoLanding.csv")
+test <- Octo[, 1:6] %>% 
+  gather("fishery", "catch", 2:4) %>% 
+  filter(fishery!="Total.Landings")
 
-# Define server logic required to draw a histogram
-server <- shinyServer(function(input, output) {
-   
-   output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-      
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
-   })
-})
+ # Define server logic required to plot octopus landings
+ server <- shinyServer(function(input, output) {
+  library(ggplot2)
+  octo_plot <- ggplot(test, aes(x=Year, y=catch)) +
+    geom_point(aes(color=fishery, size=ONI)) +
+    xlim(1980,2013) +                             # I think these will need to be variable names in                                                       # order to let the user change the slider?
+    theme_classic() +
+    ggtitle("Octopus Landings") +
+    labs(x="Year", y="Octopus landings (tons)") +
+    theme(legend.position = "bottom")
+    })
 
-# Run the application 
+ # Run the application 
 shinyApp(ui = ui, server = server)
 
