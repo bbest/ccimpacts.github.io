@@ -20,20 +20,29 @@ ui <- fluidPage(
    titlePanel("Octopus Landings"),
    sidebarLayout(
       sidebarPanel(
-         sliderInput("range","Date Range:",min = 1980,max = 2013,value = c(1980,2013))
+        # Creates the slider for the date range
+         sliderInput("range",
+                     "Date Range:",
+                     min = 1980,max = 2013,
+                     value = c(1980,2013))
       ),
-      # Show a scatter plot of catch data
+      # Below is the section that creates the checkbox widget (to select Pacific, Caribbean, or both)
+      checkboxGroupInput("checkGroup", 
+                         label = h3("Select Fishery"),
+                         choices = list("Pacific" = 1 ,"Caribbean" = 2, "Total" = 3),
+                         selected = 1)),
+      # Show the scatter plot of catch data in the main panel
       mainPanel(
          plotOutput("distPlot"),
          br(), br(),
          tableOutput("results")
       )
    )
-)
+
  
  # Define server logic required to plot octopus landings
  server <- shinyServer(function(input, output) {
-   
+   # Create output plot (haven't yet incorporated the data part of displaying the checkboxes)
    output$distPlot <- renderPlot({
       ggplot(test, aes(x=Year, y=catch)) +
       geom_point(aes(color=fishery, size=ONI)) +
