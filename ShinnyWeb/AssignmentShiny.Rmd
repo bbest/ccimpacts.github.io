@@ -1,0 +1,44 @@
+---
+title: "Shiny Web Page"
+author: "Kristen Boysen, Jennifer Kidson & Juliano Palacios"
+date: "February 26, 2016"
+output: html_document
+runtime: shiny
+---
+
+```{r sankey test, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(readr)
+library(networkD3)
+setwd("~/Desktop/Informatics/Github/ccimpacts.github.io")
+nodes = read_csv("./Data/p1.csv") %>%
+  as.data.frame()
+
+
+links = read_csv("./Data/p2.csv") %>%
+  filter(Value!=0) %>% ##not equal to 0 
+  # sankey links numbering needs to start at 0
+  mutate(
+    Source = Source - 1,
+    Target = Target - 1) %>%
+  as.data.frame()
+
+inputPanel(
+  selectInput("Source", label = "Type:",
+              choices = c("All","Cachuma", "SWP", "Recycled", "Groundwater","Other"), selected =("All")),
+  
+  selectInput("n_breaks", label = "County:",
+              choices = c("All","Goleta", "Santa Barbara", "Carpinteria", "Montecito","La Cumbre"), selected = "All"),
+  
+  selectInput("n_breaks", label = "Type Of:",
+              choices = c("All","Residential","Commercial","Non-Residential","Recycled"), selected = "All")
+  
+)
+
+sankeyNetwork(
+  Links = links, Nodes = nodes, Source = "Source",
+  Target = "Target", Value = "Value", NodeID = "name",
+  units = "AF", fontSize = 12, nodeWidth = 30)
+
+
+```
