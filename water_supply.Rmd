@@ -1,0 +1,26 @@
+---
+title: "water supply"
+author: "Jennifer Kidson"
+date: "March 9, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(streamgraph)
+library(readr)
+library(tidyr)
+library(dplyr)
+
+watersup = read_csv("./Data/watersup.csv")
+watersup$Date = as.Date(watersup$Date, format = "%Y-%m-%d")
+
+watersup %>%
+  gather(source, AF, SWP:Recycled) %>%
+  streamgraph("source","AF","Date") %>%
+  sg_axis_x(1, "Date", "%Y") %>%
+  sg_legend(show=TRUE, label="Sources: ") -> SCwater
+
+#South Coast Water Production by Year (1998-2014)
+SCwater
+```
