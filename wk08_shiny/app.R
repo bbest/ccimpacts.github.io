@@ -9,7 +9,8 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-Octo1 = read_csv("../Data/OctoLanding.csv")      # Not sure if this section should be inside "server"                                                    # or not.
+Octo1 = read_csv("../Data/OctoLanding.csv")      
+
 octo <- Octo1[, 1:6] %>% 
   gather("fishery", "catch", 2:4) %>% 
   filter(fishery!="Total.Landings") 
@@ -78,7 +79,7 @@ ui <- fluidPage(
       ggtitle("Octopus Landings") +
       labs(x="Year", y="Octopus landings (tons)") +
       theme(legend.position = "bottom")
-     }
+      }
       })
    })
  
