@@ -9,8 +9,8 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-Octo = read_csv("../Data/OctoLanding.csv")      # Not sure if this section should be inside "server"                                                    # or not.
-test <- Octo[, 1:6] %>% 
+Octo1 = read_csv("../Data/OctoLanding.csv")      # Not sure if this section should be inside "server"                                                    # or not.
+octo <- Octo1[, 1:6] %>% 
   gather("fishery", "catch", 2:4) %>% 
   filter(fishery!="Total.Landings") 
 
@@ -28,9 +28,10 @@ ui <- fluidPage(
       ),
       # Below is the section that creates the checkbox widget (to select Pacific, Caribbean, or both)
       checkboxGroupInput("checkGroup", 
-                         label = h3("Select Fishery"),
-                         choices = list("Pacific" = 1 ,"Caribbean" = 2, "Total" = 3),
-                         selected = 1)),
+                         label = h3("Select Index"),
+                         choices = list("Normal" = 1, "El Nino" = 2, "La Nina" = 3),
+                         selected = 1)
+   ),
       # Show the scatter plot of catch data in the main panel
       mainPanel(
          plotOutput("distPlot"),
@@ -42,18 +43,44 @@ ui <- fluidPage(
  
  # Define server logic required to plot octopus landings
  server <- shinyServer(function(input, output) {
-   # Create output plot (haven't yet incorporated the data part of displaying the checkboxes)
+   # Create output plot
+   # **** Right now the display part ALMOST works. The plot doesn't display at all unless the La Nina box is checked, in which case that will display correctly. I'm not sure if this is to do with the way that the ggplot stuff is set up (like we need to initialize the plot outside an if statement?) or because it's the last item?******
    output$distPlot <- renderPlot({
-      ggplot(test, aes(x=Year, y=catch)) +
+
+     if (1 %in% input$checkGroup) {
+       ggplot(subset(octo, ONI == "Normal")) +
+         aes(x=Year, y=catch) +
+         geom_point(aes(color=fishery, size=ONI)) +
+         xlim(input$range[1],input$range[2]) +
+         theme_classic() +
+         ggtitle("Octopus Landings") +
+         labs(x="Year", y="Octopus landings (tons)") +
+         theme(legend.position = "bottom")
+     }
+
+     if (2 %in% input$checkGroup) {
+       ggplot(subset(octo, ONI == "Nino")) +
+        aes(x=Year, y=catch) +
+        geom_point(aes(color=fishery, size=ONI)) +
+        xlim(input$range[1],input$range[2]) +
+        theme_classic() +
+        ggtitle("Octopus Landings") +
+        labs(x="Year", y="Octopus landings (tons)") +
+        theme(legend.position = "bottom")
+     }
+
+     if (3 %in% input$checkGroup) {
+      ggplot(subset(octo, ONI == "Nina")) +
+      aes(x=Year, y=catch) +
       geom_point(aes(color=fishery, size=ONI)) +
-      xlim(input$range[1],input$range[2]) +                   
+      xlim(input$range[1],input$range[2]) +
       theme_classic() +
       ggtitle("Octopus Landings") +
       labs(x="Year", y="Octopus landings (tons)") +
       theme(legend.position = "bottom")
+     }
       })
- })
+   })
  
  # Run the application 
 shinyApp(ui = ui, server = server)
-
