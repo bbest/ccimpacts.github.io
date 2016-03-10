@@ -33,3 +33,11 @@ SCwater
 ```{r SC Water, echo = FALSE}
 SCwater
 ```
+
+## THE package
+
+```{r meansim, echo = TRUE}
+library(devtools)
+library(psim)
+install_github("ccimpacts/ccimpacts.github.io", subdir = "meansim")
+
