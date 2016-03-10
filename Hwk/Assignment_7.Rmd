@@ -1,6 +1,6 @@
 ---
 title: "Assignment 7"
-author: "K Boysen, J Kidson, J Palacios-Abrantes"
+author: "Kristen Boysen, Jennifer Kidson & Juliano Palacios"
 date: "February 25, 2016"
 output: html_document
 ---
