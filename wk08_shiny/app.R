@@ -9,7 +9,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-Octo1 = read_csv("../Data/OctoLanding.csv")      
+Octo1 = read_csv("./OctoLanding.csv")      
 
 octo <- Octo1[, 1:6] %>% 
   gather("fishery", "catch", 2:4) %>% 
