@@ -25,11 +25,9 @@ NASA's [Climate Time Machine](http://climate.nasa.gov/climate_resources/25/) all
 ### Package
 For visualizations, we generally followed methods outlined in class examples and used various r packages (including readr, dplyr, and ggplot).
 
-Water supply data came from five local water districts, and was provided as part of one of our group members' grou projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. This data was aggregated by source for the streamgraph.
+Water supply data came from five local water districts, and was provided as part of one of our group members' grou projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. For the streamgraph, data was aggregated across districts within each month. 
 
 The methods for the package are as follows:
-
-
 
 ## South Coast Water Production
 
