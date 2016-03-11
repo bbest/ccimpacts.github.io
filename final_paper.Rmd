@@ -5,7 +5,29 @@ date: "March 10, 2016"
 output: html_document
 ---
 
+# Introduction
 
+Our team worked with two datasets that we had readily available. We wanted to create informative graphics that helped best display our data and analyses. We also created a package to compare different [JULIANO FILL THIS IN]. First, we worked with data from octopus fisheries. We examined this data to visualize the size of catches in different fishery locations (Pacific and Caribbean) and during different climatic events (El Nino and La Nina). We also worked with local water supply data from a group project. The client for this project is eager to have this information displayed in accessible and informative ways. We incorporated this objective into our project, along with the fishery data and [DESCRIPTION] package.
+
+# Innovative Examples of Communication
+### Water
+We were inspired by Jen Christiansen's visualization of water use patterns throughout the world. This is a simple and elegant visualization of water use internationally and the fate of those water supplies.
+View at [Jen Christiansen's website](http://jenchristiansen.com/?p=20)
+![](Images/Christiansen.png)
+
+### Fisheries
+A great example of fisheries data visualization can be found at [Sea Around Us](http://www.seaaroundus.org/data/#/spatial-catch). The user can select various countries, pick the category in which they want catches to be grouped, and select one or multiple taxa to map. Users can also manipulate the year. This approach makes for a user interface that allows a high degree of customization, but is still clean enough not to overwhelm the user.
+
+### Climate
+NASA's [Climate Time Machine](http://climate.nasa.gov/climate_resources/25/) allows users to view changes in several climate variables over time (sea ice, sea level, carbon emissions, and average global temperature). They incorporate maps and time sliders to provide at-a-glance information about where these impacts are being felt most severely. 
+
+# Methods
+### Package
+For visualizations, we generally followed methods outlined in class examples and used various r packages (including readr, dplyr, and ggplot).
+
+Water supply data came from five local water districts, and was provided as part of one of our group members' grou projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. For the streamgraph, data was aggregated across districts within each month. 
+
+The methods for the package are as follows:
 
 ## South Coast Water Production
 
@@ -58,3 +80,13 @@ sankeyNetwork(
 ```{r Sankey Slide, echo = FALSE}
 SCsankey
 ```
+
+# References
+1. Christiansen, Jen. 2016. "Water Consumption." in “Water In, Water Out,” by Mark Fischetti; Graphic Science department page, Scientific American, June 2012 © Scientific American. Retrieved from: http://jenchristiansen.com/?p=20
+2. NASA. (Moore Boeck, Randal Jackson, and Holly Shaftel). 2016. "Interactive: Climate time machine." NASA: Global Climate Change. Retrieved from: http://climate.nasa.gov/climate_resources/25/
+3. Sea Around Us. 2015. "Catch allocations map." Online Publication. Sea Around Us (www.seaaroundus.org). Retrieved from: http://www.seaaroundus.org/data/#/spatial-catch
+4. Carpinteria Valley Water District. 2015. Water supply source and volume data, provided by Carpinteria Valley Water District.
+5. Goleta Water District. 2016. Water supply source and volume data, provided by Goleta Water District.
+6. La Cumbre Mutual Water Company. 2015. Water supply source and volume data, provided by La Cumbre Mutual Water Company.
+7. Montecito Water District. 2015. Water supply source and volume data, provided by Montecito Water District.
+8. City of Santa Barbara. 2015. Water supply source and volume data, provided by the City of Santa Barbara.
