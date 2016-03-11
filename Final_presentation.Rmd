@@ -206,8 +206,6 @@ shinyApp(ui = ui, server = server)
 ```
 
 
-=======
->>>>>>> b7061f46d317a5c4cd6d04fdfdb385b278443a6a
 ```{r setup, include=TRUE}
 ```
 
@@ -337,6 +335,9 @@ library(psim)
 >>>>>>> 763f8a4a96c2ebfeb89db0ca96324e6c253a9b90
 
 ```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
+library(devtools)
+install_github("jepa/jepa.github.io", subdir = "psim")
+library(psim)
 column= 1
 CSs = 2
 pro = 66
