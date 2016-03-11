@@ -202,9 +202,12 @@ shinyApp(ui = ui, server = server)
 
 
 
+<<<<<<< HEAD
 ```
 
 
+=======
+>>>>>>> b7061f46d317a5c4cd6d04fdfdb385b278443a6a
 ```{r setup, include=TRUE}
 ```
 
@@ -262,7 +265,7 @@ SCsankey
 
 ## THE package
 
-```{r Data, echo=FALSE, eval=FALSE}
+```{r Data, echo=FALSE, eval=T}
 suppressWarnings(library(dplyr))
 suppressWarnings(library(knitr))
 CSData <- read.csv("./Data/CSData.csv")
@@ -270,15 +273,70 @@ CSData <- read.csv("./Data/CSData.csv")
 Data <- select(CSData,Target)
 ```
 
-```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=FALSE}
+![psimshot](Images/psimshot.png)
+
+```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
 library(psim)
 #install_github("jepa/jepa.github.io", subdir = "psim")
 ```
 
-![psimshot](Images/psimshot1.jpg)
+<<<<<<< HEAD
+## THE package (2)
 
-```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=FALSE}
+```{r psim function 1, echo = TRUE, eval=FALSE}
+
+# psim <- function(data,column,n,pro,sim,ci="0.95",test="t.test"){
+#   suppressWarnings(library(dplyr))
+# # Creates the matrix for x #
+#   x <- data.frame(matrix(nrow = n, ncol=sim))
+# 
+# #Loops trought the matrix to get random numbers of samplings within the n scorring world
+#   for (i in 1:sim){
+#     #x[i] = sample(data[[column]],n)
+#     x[i] = sample(data[,column],n)
+#   }
+
+```
+
+## THE package (3)
+
+```{r psim function 2, echo=T}
+# # Runs a parametric t.test  for each combination of n with 0.95 CI
+#   if (test == "t.test" & ci == "0.95"){
+# 
+#     Score<- apply(x, 2, t.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.95)
+# 
+#   } #If test = t.test CI 0.95
+# 
+# # Runs a parametric t.test  for each combination of n with 0.90 CI
+#   if (test == "t.test" & ci == "0.90"){
+# 
+#     Score<- apply(x, 2, t.test, alternative = "two.sided",mu = pro, paired = FALSE, var.equal = FALSE, conf.level = 0.90)
+# 
+#   } #If test = t.test CI 90
+
+```
+
+## THE package (4)
+
+```{r, last part function, eval=T, echo=T}
+  ##### Presenting results ####
+
+  # Significant <- filter(PvalTable, Value <= 0.05)
+  # NoSignificant <- filter(PvalTable, Value > 0.05)
+  # 
+  # Final <- data.frame(length(Significant$Value),length(NoSignificant$Value))
+  # colnames(Final) <- c("Significant","No_significant")
+  # 
+  # return(Final)
+# }
+```
+=======
+![psimshot](Images/psimshot1.jpg)
+>>>>>>> 763f8a4a96c2ebfeb89db0ca96324e6c253a9b90
+
+```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
 column= 1
 CSs = 2
 pro = 66
@@ -304,8 +362,8 @@ rownames(FinalResults) <- c("Cs2","Cs3","Cs4","Cs5","Cs6","Cs7","Cs8","Cs9","Cs1
 FinalResults <- kable(FinalResults)
 ```
 
-## Package Example 
+## Psim Example 
 
-```{r Kable, fig.width= 6, fig.height=6, eval=FALSE}
+```{r Kable, fig.width= 6, fig.height=6, eval=T}
 FinalResults
 ```

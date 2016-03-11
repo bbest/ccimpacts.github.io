@@ -29,6 +29,71 @@ Water supply data came from five local water districts, and was provided as part
 
 The methods for the package are as follows:
 
+
+```{r Libraries, include=FALSE}
+suppressWarnings(library(dplyr))
+suppressWarnings(library(knitr))
+```
+
+From a master data set, a selected number of values are randomly picked. For example, in the following table, we see 10 groups of 3 values. Each value was randomly selected from a general pool. Notice that the amount of groups and values are options in the function.
+
+```{r Data explanation, eval=T, echo=F}
+CSData <- read.csv("./Data/CSData.csv")
+Data<- select(CSData, Target)
+#Data Set#
+#head(Data)
+
+x <- data.frame(matrix(nrow = 3, ncol=10))
+
+for (i in 1:10){
+    #x[i] = sample(data[[column]],n)
+    x[i] = sample(Data[,1],3)
+}
+
+x <- kable(x, caption = "Groups of randomlly selected values. Each group represents 3 values randomlly selected from a 51 observations data set.", align = "c")
+x 
+
+```
+
+Once groups are formed, the function will run a parametric on side t.test (or non parametric). The selection between those two statistical analysis is optional in the function. Confidence intervals (99%, 95% and 90%) are also options to take, however t.test and 95% are the default values. Finally, the function will ask you for a "truth value" to witch you are comparing your samples. For a 99% CI non-parametric t.test comparing to a truth value of 50 (mu=50), code looks something like this:
+
+  if (test == "w.test" & ci == "0.99"){
+
+    Score<- apply(x, 2, wilcox.test, alternative = "two.sided"...
+    mu = 50, paired = FALSE, var.equal = FALSE, conf.level = 0.99)
+}
+
+Once the statistical tests are carried out, the function will arrange the tests in two groups: one with statistical p value >0.05 and one with statistical p value < 0.05. Finally, a table will be returned from the actual function.
+
+```{r Psim example, echo=F,warning=FALSE}
+library(psim)
+
+column= 1
+pro = 66
+simulations = 100
+test="w.test"
+
+Cs2<- psim(data=Data,column=column,n=2,pro=pro,sim=simulations,test=test)
+Cs3<- psim(data=Data,column=column,n=3,pro=pro,sim=simulations,test=test)
+Cs4<- psim(data=Data,column=column,n=4,pro=pro,sim=simulations,test=test)
+Cs5<- psim(data=Data,column=column,n=5,pro=pro,sim=simulations,test=test)
+Cs6<- psim(data=Data,column=column,n=6,pro=pro,sim=simulations,test=test)
+Cs7<- psim(data=Data,column=column,n=7,pro=pro,sim=simulations,test=test)
+Cs8<- psim(data=Data,column=column,n=8,pro=pro,sim=simulations,test=test)
+Cs9<- psim(data=Data,column=column,n=9,pro=pro,sim=simulations,test=test)
+Cs10<- psim(data=Data,column=column,n=10,pro=pro,sim=simulations,test=test)
+
+FinalResults<- matrix(c(Cs2$Significant,Cs3$Significant,Cs4$Significant,Cs5$Significant,Cs6$Significant,Cs7$Significant,Cs8$Significant,Cs9$Significant,Cs10$Significant,Cs2$No_significant,Cs3$No_significant,Cs4$No_significant,Cs5$No_significant,Cs6$No_significant,Cs7$No_significant,Cs8$No_significant,Cs9$No_significant,Cs10$No_significant), ncol=2)
+#head(FinalResults)
+
+colnames(FinalResults) <- c("Significant","No Significant")
+rownames(FinalResults) <- c("Citizen Scientists 2","Citizen Scientists 3","Citizen Scientists 4","Citizen Scientists 5","Citizen Scientists 6","Citizen Scientists 7","Citizen Scientists 8","Citizen Scientists 9","Citizen Scientists 10")
+Final<- kable(FinalResults, caption = "Results of psim from Citizen Science data unsing (2-10) socres per group. 100 groups compared to a truth value of 60", align = "c")
+Final
+
+```
+
+
 ## South Coast Water Production
 
 ```{r, include = FALSE}
