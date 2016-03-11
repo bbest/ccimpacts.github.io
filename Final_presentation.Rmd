@@ -41,9 +41,36 @@ SCwater
 SCwater
 ```
 
+## Sankey Diagram - Water Supply
+
+```{r sankey test, include=FALSE}
+library(dplyr)
+library(readr)
+library(networkD3)
+nodes = read_csv("./Data/p1.csv") %>%
+  as.data.frame()
+
+links = read_csv("./Data/p2.csv") %>%
+  filter(Value!=0) %>% ##not equal to 0 
+  # sankey links numbering needs to start at 0
+  mutate(
+    Source = Source - 1,
+    Target = Target - 1) %>%
+  as.data.frame()
+
+sankeyNetwork(
+  Links = links, Nodes = nodes, Source = "Source",
+  Target = "Target", Value = "Value", NodeID = "name",
+  units = "AF", fontSize = 12, nodeWidth = 30) -> SCsankey
+```
+
+```{r Sankey Slide, echo = FALSE}
+SCsankey
+```
+
 ## THE package
 
-```{r Data, echo=FALSE}
+```{r Data, echo=FALSE, eval=FALSE}
 suppressWarnings(library(dplyr))
 suppressWarnings(library(knitr))
 CSData <- read.csv("./Data/CSData.csv")
@@ -51,7 +78,7 @@ CSData <- read.csv("./Data/CSData.csv")
 Data <- select(CSData,Target)
 ```
 
-```{r psim, echo = TRUE, fig.width= 6, fig.height=6}
+```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=FALSE}
 library(devtools)
 library(psim)
 #install_github("jepa/jepa.github.io", subdir = "psim")
@@ -59,7 +86,7 @@ library(psim)
 
 ![psimshot](Images/psimshot.png)
 
-```{r Function, echo=FALSE, warning=FALSE,message=FALSE}
+```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=FALSE}
 column= 1
 CSs = 2
 pro = 66
@@ -87,6 +114,6 @@ FinalResults <- kable(FinalResults)
 
 ## Package Example 
 
-```{r Kable, fig.width= 6, fig.height=6}
+```{r Kable, fig.width= 6, fig.height=6, eval=FALSE}
 FinalResults
 ```

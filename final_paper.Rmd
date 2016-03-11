@@ -1,0 +1,60 @@
+---
+title: "CCimpacts Final Paper"
+author: "Kristen Boysen, Jennifer Kidson, Juliano Palacios-Abrantes"
+date: "March 10, 2016"
+output: html_document
+---
+
+
+
+## South Coast Water Production
+
+```{r, include = FALSE}
+library(streamgraph)
+library(readr)
+library(tidyr)
+library(dplyr)
+
+watersup = read_csv("./Data/watersup.csv")
+watersup$Date = as.Date(watersup$Date, format = "%Y-%m-%d")
+
+watersup %>%
+  gather(source, AF, SWP:Recycled) %>%
+  streamgraph("source","AF","Date") %>%
+  sg_axis_x(1, "Date", "%Y") %>%
+  sg_legend(show=TRUE, label="Sources: ") -> SCwater
+
+#South Coast Water Production by Year (1998-2014)
+SCwater
+```
+
+```{r SC Water, echo = FALSE}
+SCwater
+```
+
+## Sankey Diagram - Water Supply
+
+```{r sankey test, include=FALSE}
+library(dplyr)
+library(readr)
+library(networkD3)
+nodes = read_csv("./Data/p1.csv") %>%
+  as.data.frame()
+
+links = read_csv("./Data/p2.csv") %>%
+  filter(Value!=0) %>% ##not equal to 0 
+  # sankey links numbering needs to start at 0
+  mutate(
+    Source = Source - 1,
+    Target = Target - 1) %>%
+  as.data.frame()
+
+sankeyNetwork(
+  Links = links, Nodes = nodes, Source = "Source",
+  Target = "Target", Value = "Value", NodeID = "name",
+  units = "AF", fontSize = 12, nodeWidth = 30) -> SCsankey
+```
+
+```{r Sankey Slide, echo = FALSE}
+SCsankey
+```
