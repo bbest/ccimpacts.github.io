@@ -3,15 +3,39 @@ title: "CC Impacts Presentation"
 author: "Kristen Boysen, Jennifer Kidson, Juliano Palacios-Abrantes"
 date: "March 9, 2016"
 output: ioslides_presentation
-logo: Bren_logo_216.png
+logo: ./Images/Bren_logo_216.png
+
 runtime: shiny
 ---
-##Significance {.build}
-###Our Presentation Goals
+##Significance |Our Presentation Goals {.build} 
 
-  - Data discovery
-  - Important and informative infographics
-  - Pertinent packages
+- Data discovery
+
+- Important and informative infographics
+
+- Pertinent packages
+
+----
+<center>
+![](./Images/octopus_6201.jpg)
+</center>
+----
+<center>
+![](./Images/Cachuma1.jpg)
+</center>
+
+----
+<center>
+![](./Images/intertidal.jpg)
+</center>
+
+##Significance |Our Presentation Goals
+- Data discovery
+
+- Important and informative infographics
+
+- Pertinent packages
+
 
 
 ```{r setup, include=TRUE}
@@ -87,6 +111,7 @@ library(psim)
 #install_github("jepa/jepa.github.io", subdir = "psim")
 ```
 
+<<<<<<< HEAD
 ## THE package (2)
 
 ```{r psim function 1, echo = TRUE, eval=FALSE}
@@ -137,6 +162,9 @@ library(psim)
   # return(Final)
 # }
 ```
+=======
+![psimshot](Images/psimshot1.jpg)
+>>>>>>> 763f8a4a96c2ebfeb89db0ca96324e6c253a9b90
 
 ```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
 column= 1
