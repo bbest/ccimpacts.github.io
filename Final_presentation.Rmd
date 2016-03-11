@@ -37,7 +37,12 @@ runtime: shiny
 - Pertinent packages
 
 ##El Nino and Octopus Landings
-```{r}
+```{r, warning=F, message=F, echo=F}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+
 Octo <- read.csv("./Data/OctoLanding.csv")
 test<- Octo %>% 
   gather("fishery", "catch", 2:4) %>% 
@@ -250,7 +255,7 @@ SCwater
 SCwater
 ```
 
-## Sankey Diagram - Water Supply
+## Water Sources and Uses
 
 ```{r sankey test, include=FALSE}
 library(dplyr)
@@ -287,13 +292,14 @@ CSData <- read.csv("./Data/CSData.csv")
 Data <- select(CSData,Target)
 ```
 
-![psimshot](Images/psimshot.png)
 
+<div align="center">
+<img src="./Images/psimshot1.jpg" width=600 height=400>
+</div>
 ```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
+install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
-#install_github("jepa/jepa.github.io", subdir = "psim")
-
 ```
 
 
@@ -348,9 +354,9 @@ library(psim)
 # }
 ```
 
-![psimshot](Images/psimshot1.jpg)
 
-```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
+
+```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=F}
 library(devtools)
 #install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
@@ -376,11 +382,11 @@ FinalResults<- matrix(c(Cs2$Significant,Cs3$Significant,Cs4$Significant,Cs5$Sign
 
 colnames(FinalResults) <- c("Significant","No Significant")
 rownames(FinalResults) <- c("Cs2","Cs3","Cs4","Cs5","Cs6","Cs7","Cs8","Cs9","Cs10")
-FinalResults <- kable(FinalResults)
+FinalResults <- kable(FinalResults, center="c")
 ```
 
 ## Psim Example 
 
-```{r Kable, fig.width= 6, fig.height=6, eval=T}
+```{r Kable, fig.width= 6, fig.height=6, eval=F}
 FinalResults
 ```
