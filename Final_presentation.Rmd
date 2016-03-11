@@ -108,7 +108,7 @@ Data <- select(CSData,Target)
 ```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
 library(psim)
-#install_github("jepa/jepa.github.io", subdir = "psim")
+install_github("jepa/jepa.github.io", subdir = "psim")
 ```
 
 <<<<<<< HEAD
