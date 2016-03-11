@@ -27,7 +27,7 @@ For visualizations, we generally followed methods outlined in class examples and
 
 Water supply data came from five local water districts, and was provided as part of one of our group members' group projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. For the streamgraph, data was aggregated across districts within each month. 
 
-Github release: 
+Github release [here](https://github.com/ccimpacts/ccimpacts.github.io/releases/tag/1.0).
 
 # Package: Methods and Results
 
