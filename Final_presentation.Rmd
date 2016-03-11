@@ -37,6 +37,25 @@ runtime: shiny
 - Pertinent packages
 
 ##El Nino and Octopus Landings
+```{r}
+Octo <- read.csv("./Data/OctoLanding.csv")
+test<- Octo %>% 
+  gather("fishery", "catch", 2:4) %>% 
+  filter(fishery!="Total.Landings")
+
+octo_plot<- ggplot(test, aes(x=Year, y=catch)) +
+  geom_point(aes(color=fishery, size=ONI)) +
+  theme_classic() +
+  ggtitle("Octopus Landings from 1980-2014") +
+  labs(x="Year", y="Octopus landings (tons)") +
+  scale_color_manual(values= c("darkblue", "lightblue")) +
+  theme(legend.position = "bottom")
+
+octo_plot
+
+```
+
+##El Nino and Octopus Landings
 ```{r Octopus, echo=FALSE, message=FALSE, warning= FALSE}
 library(readr)
 library(dplyr)
@@ -200,9 +219,6 @@ ui <- fluidPage(
   # Run the application 
 shinyApp(ui = ui, server = server)
 
-
-
-<<<<<<< HEAD
 ```
 
 
@@ -276,7 +292,7 @@ Data <- select(CSData,Target)
 ```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
 library(psim)
-install_github("jepa/jepa.github.io", subdir = "psim")
+#install_github("jepa/jepa.github.io", subdir = "psim")
 ```
 
 <<<<<<< HEAD
@@ -332,11 +348,10 @@ install_github("jepa/jepa.github.io", subdir = "psim")
 ```
 =======
 ![psimshot](Images/psimshot1.jpg)
->>>>>>> 763f8a4a96c2ebfeb89db0ca96324e6c253a9b90
 
 ```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
 library(devtools)
-install_github("jepa/jepa.github.io", subdir = "psim")
+#install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
 column= 1
 CSs = 2
