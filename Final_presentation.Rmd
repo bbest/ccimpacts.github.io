@@ -6,10 +6,12 @@ output: ioslides_presentation
 logo: Bren_logo_216.png
 runtime: shiny
 ---
-##"Climate Impacts"
-####Juliano Palacios-Abrantes
-####Jennifer Kidson
-####Kristen Boysen
+##Significance {.build}
+###Our Presentation Goals
+
+  - Data discovery
+  - Important and informative infographics
+  - Pertinent packages
 
 
 
