@@ -25,11 +25,4 @@ sankeyNetwork(
   Links = links, Nodes = nodes, Source = "Source",
   Target = "Target", Value = "Value", NodeID = "name",
   units = "AF", fontSize = 12, nodeWidth = 30)
-
-# I don't get an error message, just nothing appears
-
-# Original Energy Sankey Plot
-# sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
-#               Target = "target", Value = "value", NodeID = "name",
-#               units = "TWh", fontSize = 12, nodeWidth = 30)
 ```
