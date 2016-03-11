@@ -25,12 +25,37 @@ NASA's [Climate Time Machine](http://climate.nasa.gov/climate_resources/25/) all
 ### Package
 For visualizations, we generally followed methods outlined in class examples and used various r packages (including readr, dplyr, and ggplot).
 
-Water supply data came from five local water districts, and was provided as part of one of our group members' grou projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. For the streamgraph, data was aggregated across districts within each month. 
+Water supply data came from five local water districts, and was provided as part of one of our group members' group projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. For the streamgraph, data was aggregated across districts within each month. 
 
 The methods for the package are as follows:
 
+# Results
+
+## Octopus Fisheries Data
+
+The Pacific landings of octopus are much smaller than in the Caribbean. Landings in the Caribbean have been increasing since 1980. Neither fishery's landings seem to correlate with El Nino or La Nina events.
+```{r octopus plot, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+Octo <- read.csv("./Data/OctoLanding.csv")
+test<- Octo %>% 
+  gather("fishery", "catch", 2:4) %>% 
+  filter(fishery!="Total.Landings")
+
+ggplot(test, aes(x=Year, y=catch)) +
+  geom_point(aes(color=fishery, size=ONI)) +
+  theme_classic() +
+  ggtitle("Octopus Landings from 1980-2014") +
+  labs(x="Year", y="Octopus landings (tons)") +
+  theme(legend.position = "bottom") -> octo_plot
+
+octo_plot
+```
+
 ## South Coast Water Production
 
+Water providers on the South Coast of Santa Barbara County rely highly on Lake Cachuma for water supply. Other local surface reservoirs also play an important role. More recently, groundwater has been a larger source of supply. Visible on this graph are the annual fluctuations in water use - generally water demands are greater in the summer.
 ```{r, include = FALSE}
 library(streamgraph)
 library(readr)
@@ -54,8 +79,9 @@ SCwater
 SCwater
 ```
 
-## Sankey Diagram - Water Supply
+## Water Supply Sources and Uses
 
+This figure was created before the water supply data had been fully accessioned and formatted, therefore it reflects approximate ranges for water inputs and outputs. The user has the ability to hover over connections and see the actual volume of water. Overall, Cachuma makes up the majority of supply for the South Coast, and most of the demand falls in the residential sector. Goleta and Santa Barbara provides the greatest volume of water.
 ```{r sankey test, include=FALSE}
 library(dplyr)
 library(readr)
@@ -75,6 +101,8 @@ sankeyNetwork(
   Links = links, Nodes = nodes, Source = "Source",
   Target = "Target", Value = "Value", NodeID = "name",
   units = "AF", fontSize = 12, nodeWidth = 30) -> SCsankey
+
+SCsankey
 ```
 
 ```{r Sankey Slide, echo = FALSE}
