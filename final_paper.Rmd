@@ -7,12 +7,12 @@ output: html_document
 
 # Introduction
 
-Our team worked with two datasets that we had readily available. We wanted to create informative graphics that helped best display our data and analyses. We also created a package to compare different [JULIANO FILL THIS IN]. First, we worked with data from octopus fisheries. We examined this data to visualize the size of catches in different fishery locations (Pacific and Caribbean) and during different climatic events (El Nino and La Nina). We also worked with local water supply data from a group project. The client for this project is eager to have this information displayed in accessible and informative ways. We incorporated this objective into our project, along with the fishery data and [DESCRIPTION] package.
+Our team worked with two datasets that we had readily available. We wanted to create informative graphics that helped best display our data and analyses. We also created a package to run random t-tests on datasets. First, we worked with data from octopus fisheries. We examined this data to visualize the size of catches in different fishery locations (Pacific and Caribbean) and during different climatic events (El Nino and La Nina). We also worked with local water supply data from a group project. The client for this project is eager to have this information displayed in accessible and informative ways. We incorporated this objective into our project, along with the fishery data and package.
 
 # Innovative Examples of Communication
 ### Water
 We were inspired by Jen Christiansen's visualization of water use patterns throughout the world. This is a simple and elegant visualization of water use internationally and the fate of those water supplies.
-View at [Jen Christiansen's website](http://jenchristiansen.com/?p=20)
+View at [Jen Christiansen's website](http://jenchristiansen.com/?p=20).
 ![](Images/Christiansen.png)
 
 ### Fisheries
@@ -22,37 +22,14 @@ A great example of fisheries data visualization can be found at [Sea Around Us](
 NASA's [Climate Time Machine](http://climate.nasa.gov/climate_resources/25/) allows users to view changes in several climate variables over time (sea ice, sea level, carbon emissions, and average global temperature). They incorporate maps and time sliders to provide at-a-glance information about where these impacts are being felt most severely. 
 
 # Methods
-### Package
+
 For visualizations, we generally followed methods outlined in class examples and used various r packages (including readr, dplyr, and ggplot).
 
 Water supply data came from five local water districts, and was provided as part of one of our group members' group projects (see references). This supply data consists of monthly water volume delivered to each district from each water source. For the streamgraph, data was aggregated across districts within each month. 
 
-The methods for the package are as follows:
+Github release: 
 
-<<<<<<< HEAD
-# Results
-
-## Octopus Fisheries Data
-
-The Pacific landings of octopus are much smaller than in the Caribbean. Landings in the Caribbean have been increasing since 1980. Neither fishery's landings seem to correlate with El Nino or La Nina events.
-```{r octopus plot, warning = FALSE, message = FALSE}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-Octo <- read.csv("./Data/OctoLanding.csv")
-test<- Octo %>% 
-  gather("fishery", "catch", 2:4) %>% 
-  filter(fishery!="Total.Landings")
-
-ggplot(test, aes(x=Year, y=catch)) +
-  geom_point(aes(color=fishery, size=ONI)) +
-  theme_classic() +
-  ggtitle("Octopus Landings from 1980-2014") +
-  labs(x="Year", y="Octopus landings (tons)") +
-  theme(legend.position = "bottom") -> octo_plot
-
-octo_plot
-```
+# Package: Methods and Results
 
 =======
 
@@ -76,7 +53,7 @@ for (i in 1:10){
     x[i] = sample(Data[,1],3)
 }
 
-x <- kable(x, caption = "Groups of randomlly selected values. Each group represents 3 values randomlly selected from a 51 observations data set.", align = "c")
+x <- kable(x, caption = "Groups of randomly selected values. Each group represents 3 values randomly selected from a 51 observations data set.", align = "c")
 x 
 
 ```
@@ -92,6 +69,9 @@ Once groups are formed, the function will run a parametric on side t.test (or no
 Once the statistical tests are carried out, the function will arrange the tests in two groups: one with statistical p value >0.05 and one with statistical p value < 0.05. Finally, a table will be returned from the actual function.
 
 ```{r Psim example, echo=F,warning=FALSE}
+library(dplyr)
+library(devtools)
+install_github("jepa/jepa.github.io",subdir="psim")
 library(psim)
 
 column= 1
@@ -119,12 +99,34 @@ Final
 
 ```
 
+# Results: Octopus and Water
 
->>>>>>> b7061f46d317a5c4cd6d04fdfdb385b278443a6a
+## Octopus Fisheries Data
+
+The Pacific landings of octopus are much smaller than in the Caribbean. Landings in the Caribbean have been increasing since 1980. Neither fishery's landings seem to correlate with El Nino or La Nina events (although we did not run statistical tests to confirm this).
+```{r octopus plot, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+Octo <- read.csv("./Data/OctoLanding.csv")
+test<- Octo %>% 
+  gather("fishery", "catch", 2:4) %>% 
+  filter(fishery!="Total.Landings")
+
+ggplot(test, aes(x=Year, y=catch)) +
+  geom_point(aes(color=fishery, size=ONI)) +
+  theme_classic() +
+  ggtitle("Octopus Landings from 1980-2014") +
+  labs(x="Year", y="Octopus landings (tons)") +
+  theme(legend.position = "bottom") -> octo_plot
+
+octo_plot
+```
+
 ## South Coast Water Production
 
 Water providers on the South Coast of Santa Barbara County rely highly on Lake Cachuma for water supply. Other local surface reservoirs also play an important role. More recently, groundwater has been a larger source of supply. Visible on this graph are the annual fluctuations in water use - generally water demands are greater in the summer.
-```{r, include = FALSE}
+```{r streamgraph, warning = FALSE, message = FALSE}
 library(streamgraph)
 library(readr)
 library(tidyr)
@@ -143,14 +145,10 @@ watersup %>%
 SCwater
 ```
 
-```{r SC Water, echo = FALSE}
-SCwater
-```
-
 ## Water Supply Sources and Uses
 
 This figure was created before the water supply data had been fully accessioned and formatted, therefore it reflects approximate ranges for water inputs and outputs. The user has the ability to hover over connections and see the actual volume of water. Overall, Cachuma makes up the majority of supply for the South Coast, and most of the demand falls in the residential sector. Goleta and Santa Barbara provides the greatest volume of water.
-```{r sankey test, include=FALSE}
+```{r sankey test, warning = FALSE, message = FALSE}
 library(dplyr)
 library(readr)
 library(networkD3)
@@ -173,9 +171,13 @@ sankeyNetwork(
 SCsankey
 ```
 
-```{r Sankey Slide, echo = FALSE}
-SCsankey
-```
+# Discussion
+
+### Octopus Catch Data
+Octopus catch did not appear to be correlated with climate events. However, this could be an area for future study. In the future we could also compare other species to octopus catches. In addition, we could incorporate more detailed comparisons by using sea surface temperature data to examine catch patterns, rather than only the Oceanic Nino Index.
+
+### Water Supply Data
+The graphs presented in this paper provide a general overview of water suppply and use on the South Coast of Santa Barbara County. These figures could also incorporate a greater degree of interactivity. For example, they could be altered so that the user could select data from only certain water districts. Ideally, we would also incorporate graphs with another data element (for example, monetary costs or greenhouse gas emissions associated with certain water sources and volumes).
 
 # References
 1. Christiansen, Jen. 2016. "Water Consumption." in “Water In, Water Out,” by Mark Fischetti; Graphic Science department page, Scientific American, June 2012 © Scientific American. Retrieved from: http://jenchristiansen.com/?p=20
