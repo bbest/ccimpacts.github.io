@@ -5,7 +5,17 @@ date: "March 10, 2016"
 output: html_document
 ---
 
+# Introduction
 
+Our team worked with two datasets that we had readily available. We wanted to create informative graphics that helped best display our data and analyses. We also created a package to compare different [JULIANO FILL THIS IN]. First, we worked with data from octopus fisheries. We examined this data to visualize the size of catches in different fishery locations (Pacific and Caribbean) and during different climatic events (El Nino and La Nina). We also worked with local water supply data from a group project. The client for this project is eager to have this information displayed in accessible and informative ways. We incorporated this objective into our project, along with the fishery data and [DESCRIPTION] package.
+
+# Innovative Examples
+
+We were inspired by Jen Christiansen's visualization of water use patterns throughout the world. This is a simple and elegant visualization of water use internationally and the fate of those water supplies.
+
+
+
+http://jenchristiansen.com/?p=20
 
 ## South Coast Water Production
 
