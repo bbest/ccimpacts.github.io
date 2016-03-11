@@ -24,6 +24,11 @@ runtime: shiny
 ![](./Images/Cachuma1.jpg)
 </center>
 
+----
+<center>
+![](./Images/intertidal.jpg)
+</center>
+
 ##Significance |Our Presentation Goals
 - Data discovery
 
