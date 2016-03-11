@@ -291,16 +291,12 @@ Data <- select(CSData,Target)
 
 ```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
-<<<<<<< HEAD
 library(psim)
 #install_github("jepa/jepa.github.io", subdir = "psim")
-=======
-install_github("jepa/jepa.github.io", subdir = "psim")
-library(psim)
->>>>>>> 352859706e37fa43c059c04c24bd1273d17ad700
+
 ```
 
-<<<<<<< HEAD
+
 ## THE package (2)
 
 ```{r psim function 1, echo = TRUE, eval=FALSE}
@@ -351,7 +347,7 @@ library(psim)
   # return(Final)
 # }
 ```
-=======
+
 ![psimshot](Images/psimshot1.jpg)
 
 ```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
