@@ -294,7 +294,7 @@ Data <- select(CSData,Target)
 
 
 <div align="center">
-<img src="./images/psimshot1.jpg" width=600 height=400>
+<img src="./Images/psimshot1.jpg" width=600 height=400>
 </div>
 ```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
