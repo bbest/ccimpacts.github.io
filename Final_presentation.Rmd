@@ -294,7 +294,7 @@ Data <- select(CSData,Target)
 
 
 <div align="center">
-<img src="./Images/psimshot1.jpg" width=600 height=400>
+<img src="./images/psimshot1.jpg" width=600 height=400>
 </div>
 ```{r psim, echo = TRUE, fig.width= 6, fig.height=6, eval=T}
 library(devtools)
@@ -355,38 +355,3 @@ library(psim)
 ```
 
 
-
-```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=F}
-library(devtools)
-#install_github("jepa/jepa.github.io", subdir = "psim")
-library(psim)
-column= 1
-CSs = 2
-pro = 66
-simulations = 1000
-test="w.test"
-
-Cs2<- psim(data=Data,column=column,n=2,pro=pro,sim=simulations,test=test)
-Cs3<- psim(data=Data,column=column,n=3,pro=pro,sim=simulations,test=test)
-Cs4<- psim(data=Data,column=column,n=4,pro=pro,sim=simulations,test=test)
-Cs5<- psim(data=Data,column=column,n=5,pro=pro,sim=simulations,test=test)
-Cs6<- psim(data=Data,column=column,n=6,pro=pro,sim=simulations,test=test)
-Cs7<- psim(data=Data,column=column,n=7,pro=pro,sim=simulations,test=test)
-Cs8<- psim(data=Data,column=column,n=8,pro=pro,sim=simulations,test=test)
-Cs9<- psim(data=Data,column=column,n=9,pro=pro,sim=simulations,test=test)
-Cs10<- psim(data=Data,column=column,n=10,pro=pro,sim=simulations,test=test)
-
-
-FinalResults<- matrix(c(Cs2$Significant,Cs3$Significant,Cs4$Significant,Cs5$Significant,Cs6$Significant,Cs7$Significant,Cs8$Significant,Cs9$Significant,Cs10$Significant,Cs2$No_significant,Cs3$No_significant,Cs4$No_significant,Cs5$No_significant,Cs6$No_significant,Cs7$No_significant,Cs8$No_significant,Cs9$No_significant,Cs10$No_significant), ncol=2)
-#head(FinalResults)
-
-colnames(FinalResults) <- c("Significant","No Significant")
-rownames(FinalResults) <- c("Cs2","Cs3","Cs4","Cs5","Cs6","Cs7","Cs8","Cs9","Cs10")
-FinalResults <- kable(FinalResults, center="c")
-```
-
-## Psim Example 
-
-```{r Kable, fig.width= 6, fig.height=6, eval=F}
-FinalResults
-```
