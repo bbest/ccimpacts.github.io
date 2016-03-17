@@ -356,7 +356,7 @@ library(psim)
 
 
 
-```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=F}
+```{r Function, echo=FALSE, warning=FALSE,message=FALSE, eval=T}
 library(devtools)
 #install_github("jepa/jepa.github.io", subdir = "psim")
 library(psim)
@@ -387,6 +387,6 @@ FinalResults <- kable(FinalResults, center="c")
 
 ## Psim Example 
 
-```{r Kable, fig.width= 6, fig.height=6, eval=F}
+```{r Kable, fig.width= 6, fig.height=6, eval=T}
 FinalResults
 ```
