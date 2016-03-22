@@ -123,6 +123,32 @@ ggplot(test, aes(x=Year, y=catch)) +
 octo_plot
 ```
 
+```{r octopus plot BB, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+Octo <- read.csv("./Data/OctoLanding.csv")
+test<- Octo %>% 
+  gather("fishery", "catch", 2:4) %>% 
+  filter(fishery!="Total.Landings") %>%
+  rename(ENSO=ONI)
+
+# boxplot
+ggplot(test, aes(x=ENSO, y=catch, fill=ENSO)) +
+  geom_boxplot() +
+  facet_grid(fishery ~ ., scales = "free") +
+  guides(fill=F)
+  
+# violin plot
+ggplot(test, aes(x=ENSO, y=catch, fill=ENSO)) +
+  geom_violin() +
+  geom_boxplot(width=0.1, fill="white") +
+  facet_grid(fishery ~ ., scales = "free") +
+  guides(fill=F)
+```
+
+
+
 ## South Coast Water Production
 
 Water providers on the South Coast of Santa Barbara County rely highly on Lake Cachuma for water supply. Other local surface reservoirs also play an important role. More recently, groundwater has been a larger source of supply. Visible on this graph are the annual fluctuations in water use - generally water demands are greater in the summer.
