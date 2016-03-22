@@ -131,7 +131,8 @@ Octo <- read.csv("./Data/OctoLanding.csv")
 test<- Octo %>% 
   gather("fishery", "catch", 2:4) %>% 
   filter(fishery!="Total.Landings") %>%
-  rename(ENSO=ONI)
+  rename(ENSO=ONI) %>%
+  mutate(label = sprintf('row %d', row_number()))
 
 # boxplot
 ggplot(test, aes(x=ENSO, y=catch, fill=ENSO)) +
@@ -145,6 +146,26 @@ ggplot(test, aes(x=ENSO, y=catch, fill=ENSO)) +
   geom_boxplot(width=0.1, fill="white") +
   facet_grid(fishery ~ ., scales = "free") +
   guides(fill=F)
+
+# exploding boxplots
+# CLICK ON THE BARS TO EXPLODE INTO POINTS!
+library(explodingboxplotR) # devtools::install_github("timelyportfolio/explodingboxplotR")
+# Pacific.Landings
+exploding_boxplot(
+  test %>% 
+    filter(fishery == 'Pacific.Landings'),
+  y     = 'catch',
+  group = 'ENSO',
+  color = 'ENSO',
+  label = 'label')
+# Caribbean.Landings
+exploding_boxplot(
+  test %>% 
+    filter(fishery == 'Caribbean.Landings'),
+  y     = 'catch',
+  group = 'ENSO',
+  color = 'ENSO',
+  label = 'label')
 ```
 
 
